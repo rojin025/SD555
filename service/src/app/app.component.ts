@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommunicationService } from './communication.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -10,9 +10,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  readonly communication = inject(CommunicationService);
+  $quoteUsingSubscribe = signal<{ quote: string }>({ quote: 'loading...' });
+  #communication = inject(CommunicationService);
 
-  $quote = toSignal(this.communication.generateQuote, {
+  $quote = toSignal(this.#communication.generateQuote, {
     initialValue: { quote: 'Loacing...' },
   });
+
+  constructor() {
+    this.#communication.generateQuote.subscribe((res) =>
+      this.$quoteUsingSubscribe.set(res)
+    );
+  }
 }
