@@ -10,4 +10,5 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'route-Demo';
+  users = Array.from(Array(100).keys(), (v, i) => `item ${i}`);
 }
