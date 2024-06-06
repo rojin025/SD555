@@ -222,11 +222,13 @@
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
       <form [formGroup]="form">
-        <input type="text" placeholder="name" formControlName="name" /> <br />
+        <input type="text" placeholder="email" formControlName="email" /> <br />
         @if(email.invalid && email.dirty && email.touched){<span
           >Please enter valid email.</span
         >}
-        <input type="text" placeholder="email:" formControlName="email" />
+        <input type="text" placeholder="name:" formControlName="name" />
+        @if(name.invalid && name.dirty){<span>Please enter valid name.</span>}
+
         <br />
         <button>submit</button>
       </form>

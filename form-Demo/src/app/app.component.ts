@@ -1,5 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +18,20 @@ export class AppComponent {
 
   form = inject(FormBuilder).nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    name: '',
+    name: ['', [Validators.required, this.customValidator]],
   });
 
   get email() {
     return this.form.controls.email;
+  }
+
+  get name() {
+    return this.form.controls.name;
+  }
+
+  customValidator(control: AbstractControl) {
+    return control.value.length > 6
+      ? null
+      : { error: 'length must be greater then 6.' };
   }
 }
