@@ -16,7 +16,7 @@ export class UserComponent {
 
   constructor() {
     effect(() => {
-      this.#title.setTitle(`User `);
+      // this.#title.setTitle(`User `);
     });
   }
 
